@@ -22,7 +22,7 @@ jobs:
       - name: build image
         run: | 
             cd apps/
-            docker build -t ghcr.io/kentrg/hello-world-app:${{ github.sha }} .
+            docker build -t ghcr.io/${{ github.actor }}/hello-world-app:${{ github.sha }} .
 
       - name:  push image
         run: docker push ghcr.io/${{ github.actor }}/hello-world-app:${{ github.sha }}
@@ -38,7 +38,7 @@ jobs:
       - name: commit the changes made
         run: |
             git config --global user.name  'Bot Here'
-            git config --global user.email 'kentrg@gmail.com'
+            git config --global user.email '${{ github.actor }}@gmail.com'
             git add .
             git commit -m "Update image tag"
             git push

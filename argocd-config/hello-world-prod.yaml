@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hello-world-prod
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/kentrg/kantox-k8s-challenge.git
+    targetRevision: HEAD
+    path: prod
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: hello-world-prod
+
+  syncPolicy:
+    syncOptions:
+    - CreateNameSpace=true    # creates namespaces if they dontexist
+
+    automated:
+      selfHeal: true          # override any manual changes with whats in git repo
+      prune: true             # enable automatic pruning. If you remove file with configs it will also
+                              # remove services/pods that are in that file from cluster
+          

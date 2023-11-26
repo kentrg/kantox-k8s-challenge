@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: hello-world-deployment
-  namespace: argocd-applications-namespace
+  namespace: hello-world-app
 spec:
   replicas: 1
   selector:
@@ -18,4 +18,3 @@ spec:
         image: ghcr.io/kentrg/hello-world-app:9cff852833ddf50021f23c76e5d824ed579c44b4
         ports:
         - containerPort: 80
-

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: hello-world
-        image: ghcr.io/kentrg/hello-world-app:a99a92de279356e406c9e1ea5ae1fc71f0744f11
+        image: ghcr.io/kentrg/hello-world-app:e9a55140d194039086be04d5446c3247d534bd48
         ports:
         - containerPort: 80
 

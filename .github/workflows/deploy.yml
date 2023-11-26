@@ -1,0 +1,44 @@
+name: deploy hello world
+
+on:
+    push:
+      branches:
+        - master
+    workflow_dispatch:
+
+jobs:
+  login:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.token }}
+      - name: Checkout code
+        uses: actions/checkout@v4
+       
+      - name: build image
+        run: | 
+            cd apps/
+            docker build -t ghcr.io/kentrg/hello-world-app:${{ github.sha }} .
+
+      - name:  push image
+        run: docker push ghcr.io/${{ github.actor }}/hello-world-app:${{ github.sha }}
+
+      - name: tag image with find/replace
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "hello-world-app:[A-Za-z0-9]+"
+          replace: "hello-world-app:${{ github.sha }}"
+          include: dev/**
+          regex: true
+  
+      - name: commit the changes made
+        run: |
+            git config --global user.name  'Bot Here'
+            git config --global user.email 'kentrg@gmail.com'
+            git add .
+            git commit -m "Update image tag"
+            git push

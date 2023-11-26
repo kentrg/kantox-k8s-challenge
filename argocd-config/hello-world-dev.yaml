@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: myapp-argo-application
-  namespace: argocd
+  name: hello-world-dev
+  namespace: hello-world-app
 spec:
   project: default
   source:
-    repoURL: https://github.com/kentrg/nginx-kubernetes.git
+    repoURL: https://github.com/kentrg/kantox-k8s-challenge.git
     targetRevision: HEAD
     path: dev
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd-applications-ns
+    namespace: hello-world-app
 
   syncPolicy:
     syncOptions:

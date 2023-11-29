@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/kentrg/kantox-k8s-challenge.git
     targetRevision: HEAD
-    path: dev
+    path: kubernetes/overlays/staging
   destination:
     server: https://kubernetes.default.svc
     namespace: hello-world-app
